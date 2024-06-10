@@ -20,8 +20,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(passport.initialize());
 
 // Routes
-// app.use('/api/users', users);
-// app.use('/api/auth', auth);
+app.use('/auth', auth);
 
 const port = process.env.PORT || 5000;
 
