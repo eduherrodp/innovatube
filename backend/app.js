@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
-
+const auth = require('./routes/auth');
 require('dotenv').config();
 
 const app = express();
@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 // Passport middleware
 app.use(passport.initialize());
 
-// Routes
+// Import Routes
 app.use('/auth', auth);
 
 const port = process.env.PORT || 5000;
