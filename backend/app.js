@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const auth = require('./routes/auth');
+const videos = require('./routes/videoRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(passport.initialize());
 
 // Import Routes
 app.use('/auth', auth);
+app.use('/videos', videos);
 
 const port = process.env.PORT || 5000;
 

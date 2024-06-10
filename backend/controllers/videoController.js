@@ -21,4 +21,30 @@ exports.searchVideos = async (req, res) => {
         console.error(error.message);
         res.status(500).send('Server error');
     }
+};
+
+exports.addFavorite = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user.favorites.includes(req.params.id)) {
+            user.favorites.push(req.params.id);
+            await user.save();
+        }
+        res.json(user.favorites);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server error');
+    }
+}
+
+exports.removeFavorite = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        user.favorites = user.favorites.filter(fav => fav.toString() !== req.params.id);
+        await user.save();
+        res.json(user.favorites);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error')
+    }
 }
