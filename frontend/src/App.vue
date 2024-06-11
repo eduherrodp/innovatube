@@ -1,47 +1,50 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app">
+    <header class="header text-white py-3 animate__animated animate__fadeInDown">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo d-flex align-items-center">
+          <img src="@/assets/innovatube-logo.png" alt="InnovaTube Logo" class="img-fluid bg-white rounded-circle" style="width: 50px;">
+          <h2 class="ms-2 mb-0">InnovaTube</h2>
+        </div>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item"><router-link to="/" class="nav-link text-white">Inicio</router-link></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#features-section">Características</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#about-us">Sobre mí</a></li>
+            <li class="nav-item"><router-link to="/register-login" class="nav-link text-black bg-white rounded-pill border border-success">Registrarse</router-link></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="flex-grow-1">
+      <router-view />
+    </main>
+    <footer class="py-3 my-3">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><router-link to="/" class="nav-link text-body-secondary">Inicio</router-link></li>
+        <li class="nav-item"><a class="nav-link text-body-secondary" href="#features-section">Características</a></li>
+        <li class="nav-item"><a class="nav-link text-body-secondary" href="#about-us">Sobre mí</a></li>
+      </ul>
+      <p class="text-center text-body-secondary">&copy; 2024 InnovaTube</p>
+    </footer>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script>
+
+export default {
+  name: 'App',
+};
+</script>
+
+<style>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f0f0;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.header {
+  background-color: #000000ce;
 }
 </style>
