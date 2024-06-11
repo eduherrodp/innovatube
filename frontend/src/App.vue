@@ -31,9 +31,16 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
+  methods: {
+    handleLogout() {
+      // Manejar la acción de cerrar sesión
+      this.$router.push({ name: 'home' }).catch(err => {
+        console.error('Error al redirigir a la página de inicio:', err);
+      });
+    }
+  }
 };
 </script>
 
