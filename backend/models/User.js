@@ -25,7 +25,8 @@ const UserSchema = new Schema({
         required: true
     },
     favorites: [{
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Video"
     }]
 });
 

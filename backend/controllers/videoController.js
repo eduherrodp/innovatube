@@ -1,5 +1,6 @@
 const axios = require('axios');
 const User = require('../models/User');
+const Video = require('../models/Video');
 
 exports.searchVideos = async (req, res) => {
     const { query } = req.query;
@@ -28,12 +29,39 @@ exports.searchVideos = async (req, res) => {
 };
 
 exports.addFavorite = async (req, res) => {
+    const videoId = req.params.id;
     try {
         const user = await User.findById(req.user.id);
-        if (!user.favorites.includes(req.params.id)) {
-            user.favorites.push(req.params.id);
+        let video = await Video.findOne({ videoId });
+        if (!video) {
+            const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+                params: {
+                    part: 'snippet',
+                    id: videoId,
+                    key: process.env.YOUTUBE_API_KEY
+                }
+            });
+
+            if (response.data.items.length === 0) {
+                return res.status(404).json({ msg: 'API: Video not found' });
+            }
+
+            const item = response.data.items[0];
+            video = new Video({
+                videoId: item.id,
+                title: item.snippet.title,
+                description: item.snippet.description,
+                url: `https://www.youtube.com/watch?v=${item.id}`
+            });
+
+            await video.save();
+        }
+
+        if (!user.favorites.some(fav => fav.equals(video._id))) {
+            user.favorites.push(video._id);
             await user.save();
         }
+
         res.json(user.favorites);
     } catch (err) {
         console.error(err.message);
@@ -42,11 +70,28 @@ exports.addFavorite = async (req, res) => {
 };
 
 exports.removeFavorite = async (req, res) => {
+    const videoId = req.params.id;
     try {
         const user = await User.findById(req.user.id);
-        user.favorites = user.favorites.filter(fav => fav !== req.params.id);
-        await user.save();
-        res.json(user.favorites);
+        const video = await Video.findOne({ videoId });
+
+        if (!video) {
+            return res.status(404).json({ msg: 'Video not found' });
+        }
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: req.user.id },
+            { $pull: { favorites: video._id }, $inc: { __v: 1 } },
+            { new: true, useFindAndModify: false }
+        );
+
+        const usersWithVideo = await User.find({ favorites: video._id });
+
+        if (usersWithVideo.length === 0) {
+            await Video.deleteOne({ _id: video._id });
+        }
+
+        res.json(updatedUser.favorites);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
