@@ -2,7 +2,7 @@
   <div id="app" class="container">
     <transition name="fade" mode="out-in">
       <div :key="activeForm">
-        <LoginForm v-if="activeForm === 'login'" :isActive="true" />
+        <LoginForm v-if="activeForm === 'login'" :isActive="true" @login-success="handleLoginSuccess" />
         <RegisterForm v-else :isActive="true" @registration-success="handleRegistrationSuccess" />
         <div class="text-center mt-2">
           <button @click="toggleForm()" :class="{ 'btn-primary': activeForm === 'login', 'btn-secondary': activeForm === 'register'}" class="btn">
@@ -35,6 +35,10 @@ export default {
     },
     handleRegistrationSuccess() {
       this.activeForm = 'login';
+    },
+    handleLoginSuccess(username) {
+      localStorage.setItem('username', username); 
+      this.$router.push({ name: 'search' });
     }
   }
 };
