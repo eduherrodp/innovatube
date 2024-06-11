@@ -37,15 +37,6 @@ export default {
   data() {
     return {
       usernameOrEmail: '',
-<<<<<<< HEAD
-      password: ''
-    };
-  },
-  methods: {
-    handleSubmit() {
-      // Lógica para manejar el inicio de sesión
-      console.log('Submit login:', this.usernameOrEmail, this.password);
-=======
       password: '',
       errorMsg: ''
     };
@@ -94,16 +85,11 @@ export default {
         console.error('Error en el inicio de sesión:', error);
         this.errorMsg = 'Error en el inicio de sesión. Por favor, inténtalo de nuevo más tarde.';
       }
->>>>>>> feature/backend-frontend-integration
     }
   }
 };
 </script>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/backend-frontend-integration
 <style scoped>
 form {
   max-width: 400px;
@@ -131,8 +117,4 @@ form button {
 .fade-leave-to {
   opacity: 0;
 }
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> feature/backend-frontend-integration

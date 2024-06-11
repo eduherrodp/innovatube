@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-<!-- src/components/Search.vue -->
-<template>
-    <div>
-        <h2>Buscar Videos</h2>
-        <form @submit.prevent="search">
-            <input type="text" v-model="query" placeholder="Buscar...">
-            <button type="submit">Buscar</button>
-        </form>
-=======
 <template>
     <div class="search-container mt-3">
         <header class="d-flex justify-content-end align-items-center mb-4">
@@ -72,7 +62,6 @@
         <section v-else-if="searched && showFavorites && favorites.length === 0" class="list-container m-5">
             <p class="mt-4 text-muted">No tienes videos marcados como favoritos.</p>
         </section>
->>>>>>> feature/backend-frontend-integration
     </div>
 </template>
 
@@ -82,14 +71,6 @@ import axios from 'axios';
 export default {
     data() {
         return {
-<<<<<<< HEAD
-            query: ''
-        };
-    },
-    methods: {
-        async search() {
-            console.log('Búsqueda de videos');
-=======
             query: '',
             videos: [],
             favorites: [],
@@ -175,15 +156,12 @@ export default {
             this.$router.push({ name: 'Home' }).catch(err => {
                 console.error('Error al redirigir a la página de inicio:', err);
             });
->>>>>>> feature/backend-frontend-integration
         }
     }
 };
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
 .user-info {
     display: flex;
     align-items: center;
@@ -211,5 +189,4 @@ export default {
 .form-control {
     width: 300px;
 }
->>>>>>> feature/backend-frontend-integration
 </style>
