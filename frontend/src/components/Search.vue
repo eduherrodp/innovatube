@@ -3,27 +3,33 @@
         <header class="d-flex justify-content-end align-items-center mb-4">
             <div class="user-info me-5">
                 <span v-if="isLoggedIn" class="username bg-primary text-white px-3 py-2 rounded">{{ username }}</span>
-                <button @click="logout" class="btn btn-danger ms-2 px-5">Cerrar sesión</button>
+                <button @click="logout" class="btn btn-danger ms-2 px-4">Cerrar sesión</button>
             </div>
         </header>
         <section class="text-center">
             <h2 class="mb-4">Buscar videos</h2>
             <form @submit.prevent="search" class="d-flex justify-content-center">
-                <input type="text" v-model="query" placeholder="Buscar..." class="form-control me-4">
+                <input type="text" v-model="query" placeholder="Buscar..." class="form-control me-3">
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </form>
         </section>
-        <section v-if="videos.length > 0">
+        <section v-if="videos.length > 0" class="list-container m-5">
             <h3 class="mt-4">Resultados de búsqueda</h3>
-            <ul class="list-unstyled">
-                <li v-for="video in videos" :key="video.videoId" class="mt-3">
-                    <a :href="video.url" target="_blank" class="text-primary">{{ video.title }}</a>
-                    <p class="text-muted mb-0">{{ video.description }}</p>
+            <ul class="list-group mt-3">
+                <li v-for="video in videos" :key="video.videoId" class="list-group-item mb-4">
+                    <div class="d-flex justify-content-between align-items-center ">
+                        <div>
+                            <a :href="video.url" target="_blank" class="text-primary">{{ video.title }}</a>
+                            <p class="text-muted mb-0">{{ video.description }}</p>
+                        </div>
+                        <button @click="addToFavorites(video)" class="btn btn-sm btn-outline-primary">Agregar a
+                            favoritos</button>
+                    </div>
                 </li>
             </ul>
         </section>
         <section v-else-if="searched">
-            <p class="mt-4 ms-5 text-muted">No se encontraron resultados.</p>
+            <p class="mt-4 text-muted">No se encontraron resultados.</p>
         </section>
     </div>
 </template>
@@ -49,7 +55,7 @@ export default {
         async search() {
             try {
                 const token = localStorage.getItem('jwtToken');
-                const response = await axios.get('http://localhost:5000/api/search', {
+                const response = await axios.get('http://localhost:5000/videos/search', {
                     params: { query: this.query },
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -64,12 +70,24 @@ export default {
         logout() {
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('username');
-            this.isLoggedIn = false; // Actualiza el estado de isLoggedIn
-            this.username = ''; // Limpia el nombre de usuario
-            this.$emit('logout'); // Emitir evento de cerrar sesión
-            this.$router.push({ name: 'Home' }).catch(err => {
+            this.isLoggedIn = false;
+            this.username = '';
+            this.$emit('logout');
+            this.$router.push({ name: 'home' }).catch(err => {
                 console.error('Error al redirigir a la página de inicio:', err);
             });
+        },
+        async addToFavorites(video) {
+            try {
+                const token = localStorage.getItem('jwtToken');
+                await axios.post(`http://localhost:5000/videos/favorite/${video.videoId}`, {}, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                alert('Video agregado a favoritos.');
+            } catch (error) {
+                console.error('Error al agregar video a favoritos:', error);
+                alert('Error al agregar video a favoritos. Por favor, inténtelo de nuevo.');
+            }
         }
     }
 };
