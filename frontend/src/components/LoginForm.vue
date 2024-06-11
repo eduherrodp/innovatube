@@ -20,12 +20,9 @@
 
         <!-- Recuperación de contraseña -->
         <p class="mt-1"><a href="#">¿Olvidaste tu contraseña?</a></p>
-<<<<<<< HEAD
-=======
 
         <!-- Mostrar mensaje de error -->
         <div v-if="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
->>>>>>> feature/backend-frontend-integration
       </form>
     </div>
   </transition>

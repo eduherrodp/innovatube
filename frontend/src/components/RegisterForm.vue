@@ -39,12 +39,9 @@
           <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control" required>
         </div>
 
-<<<<<<< HEAD
-=======
         <!-- Mostrar mensaje de error-->
          <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div> 
 
->>>>>>> feature/backend-frontend-integration
         <div class="mb-2">
           <div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
         </div>
@@ -56,10 +53,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/backend-frontend-integration
 export default {
   props: ['isActive'],
   data() {
@@ -69,25 +62,12 @@ export default {
       email: '',
       username: '',
       password: '',
-<<<<<<< HEAD
-      confirmPassword: ''
-=======
       confirmPassword: '',
       errorMessage: ''
->>>>>>> feature/backend-frontend-integration
     };
   },
   methods: {
     async handleSubmit() {
-<<<<<<< HEAD
-      // Validación de campos
-      if (!this.firstName || !this.lastName || !this.email || !this.username || !this.password || !this.confirmPassword) {
-        alert('Por favor completa todos los campos.');
-        return;
-      }
-
-      // Validación de contraseña
-=======
       // Validaciones
       if (!/^[a-zA-Z\s]+$/.test(this.firstName) || !/^[a-zA-Z\s]+$/.test(this.lastName)) {
         alert('Por favor ingresa nombres y apellidos válidos.');
@@ -109,32 +89,12 @@ export default {
         return;
       }
 
->>>>>>> feature/backend-frontend-integration
       if (this.password !== this.confirmPassword) {
         alert('Las contraseñas no coinciden. Por favor, verifica.');
         return;
       }
 
       try {
-<<<<<<< HEAD
-        // Simular llamada HTTP para registro de usuario
-        console.log('Submit registration:', this.firstName, this.lastName, this.username, this.email, this.password, this.confirmPassword);
-
-        // Limpiar campos después de un registro exitoso (simulado)
-        this.firstName = '';
-        this.lastName = '';
-        this.email = '';
-        this.username = '';
-        this.password = '';
-        this.confirmPassword = '';
-
-        // Redirigir o mostrar otra retroalimentación de éxito si es necesario
-        alert('Registro exitoso.');
-      } catch (error) {
-        // Manejo de errores en la llamada HTTP
-        console.error('Error en el registro:', error);
-        alert('Error en el registro. Por favor, inténtalo de nuevo más tarde.');
-=======
         const userData = {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -180,7 +140,6 @@ export default {
         // Manejo de errores en la llamada HTTP
         console.error('Error en el registro:', error);
         this.errorMessage = 'Error en el registro. Por favor, intente de nuevo más tarde.';
->>>>>>> feature/backend-frontend-integration
       }
     }
   }
