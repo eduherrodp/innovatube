@@ -2,13 +2,15 @@ const axios = require('axios');
 const User = require('../models/User');
 const Video = require('../models/Video');
 
+
 exports.searchVideos = async (req, res) => {
-    const { query } = req.query;
+    const { query, maxResults = 20 } = req.query;
     try {
         const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
             params: {
                 part: 'snippet',
                 q: query,
+                maxResults,
                 key: process.env.YOUTUBE_API_KEY
             }
         });
@@ -97,3 +99,16 @@ exports.removeFavorite = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+
+exports.getFavorites = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('favorites');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json(user.favorites);
+    } catch (error) {
+        console.error('Error al obtener favoritos:', error.message);
+        res.status(500).send('Server error');
+    }
+}

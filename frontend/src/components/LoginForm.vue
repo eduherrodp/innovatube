@@ -67,7 +67,7 @@ export default {
           localStorage.setItem('username', user.username);
 
           // Emitir evento de éxito de inicio de sesión
-          this.$emit('login-success', user.username);
+          this.$emit('login-success', user.username); // Aquí emitimos el evento
 
           // Limpiar campos de entrada y error
           this.usernameOrEmail = '';
@@ -86,6 +86,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 form {

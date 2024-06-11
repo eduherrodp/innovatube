@@ -44,10 +44,23 @@ exports.loginUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid Credentials' });
         }
+        
+        // Si el usuario existe y las credenciales son válidas, generamos el token JWT
         const payload = { user: { id: user.id } };
         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 360000 }, (err, token) => {
             if (err) throw err;
-            res.json({ token });
+
+            // Retornamos el token JWT junto con los datos del usuario
+            res.json({
+                token,
+                user: {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    username: user.username
+                }
+            });
         });
     } catch (err) {
         console.error(err.message);

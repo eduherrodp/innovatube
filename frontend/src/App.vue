@@ -11,7 +11,7 @@
             <li class="nav-item"><router-link to="/" class="nav-link text-white">Inicio</router-link></li>
             <li class="nav-item"><a class="nav-link text-white" href="#features-section">Características</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#about-us">Sobre mí</a></li>
-            <li class="nav-item"><router-link to="/register-login" class="nav-link text-black bg-white rounded-pill border border-success">Registrarse</router-link></li>
+            <li class="nav-item"><router-link to="/register-login" class="nav-link text-black bg-white rounded-pill border border-success">Iniciar</router-link></li>
           </ul>
         </nav>
       </div>
