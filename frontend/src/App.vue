@@ -11,7 +11,11 @@
             <li class="nav-item"><router-link to="/" class="nav-link text-white">Inicio</router-link></li>
             <li class="nav-item"><a class="nav-link text-white" href="#features-section">Características</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#about-us">Sobre mí</a></li>
+<<<<<<< HEAD
             <li class="nav-item"><router-link to="/register-login" class="nav-link text-black bg-white rounded-pill border border-success">Registrarse</router-link></li>
+=======
+            <li class="nav-item"><router-link to="/register-login" class="nav-link text-black bg-white rounded-pill border border-success">Iniciar</router-link></li>
+>>>>>>> feature/backend-frontend-integration
           </ul>
         </nav>
       </div>
@@ -31,9 +35,22 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 
 export default {
   name: 'App',
+=======
+export default {
+  name: 'App',
+  methods: {
+    handleLogout() {
+      // Manejar la acción de cerrar sesión
+      this.$router.push({ name: 'home' }).catch(err => {
+        console.error('Error al redirigir a la página de inicio:', err);
+      });
+    }
+  }
+>>>>>>> feature/backend-frontend-integration
 };
 </script>
 
@@ -43,6 +60,12 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   background-color: #f0f0f0;
+<<<<<<< HEAD
+}
+.header {
+  background-color: #000000ce;
+=======
+>>>>>>> feature/backend-frontend-integration
 }
 .header {
   background-color: #000000ce;

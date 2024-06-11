@@ -39,6 +39,12 @@
           <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control" required>
         </div>
 
+<<<<<<< HEAD
+=======
+        <!-- Mostrar mensaje de error-->
+         <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div> 
+
+>>>>>>> feature/backend-frontend-integration
         <div class="mb-2">
           <div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
         </div>
@@ -50,6 +56,10 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/backend-frontend-integration
 export default {
   props: ['isActive'],
   data() {
@@ -59,11 +69,17 @@ export default {
       email: '',
       username: '',
       password: '',
+<<<<<<< HEAD
       confirmPassword: ''
+=======
+      confirmPassword: '',
+      errorMessage: ''
+>>>>>>> feature/backend-frontend-integration
     };
   },
   methods: {
     async handleSubmit() {
+<<<<<<< HEAD
       // Validación de campos
       if (!this.firstName || !this.lastName || !this.email || !this.username || !this.password || !this.confirmPassword) {
         alert('Por favor completa todos los campos.');
@@ -71,12 +87,36 @@ export default {
       }
 
       // Validación de contraseña
+=======
+      // Validaciones
+      if (!/^[a-zA-Z\s]+$/.test(this.firstName) || !/^[a-zA-Z\s]+$/.test(this.lastName)) {
+        alert('Por favor ingresa nombres y apellidos válidos.');
+        return;
+      }
+
+      if (!/^[a-zA-Z0-9_-]{3,20}$/.test(this.username)) {
+        alert('Nombre de usuario inválido. Debe contener solo letras, números, guiones bajos y guiones medios, y tener entre 3 y 20 caracteres.');
+        return;
+      }
+
+      if (!/^[\w-]+(\.[\w-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/.test(this.email)) {
+        alert('Por favor ingresa una dirección de correo electrónico válida.');
+        return;
+      }
+
+      if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(this.password)) {
+        alert('La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.');
+        return;
+      }
+
+>>>>>>> feature/backend-frontend-integration
       if (this.password !== this.confirmPassword) {
         alert('Las contraseñas no coinciden. Por favor, verifica.');
         return;
       }
 
       try {
+<<<<<<< HEAD
         // Simular llamada HTTP para registro de usuario
         console.log('Submit registration:', this.firstName, this.lastName, this.username, this.email, this.password, this.confirmPassword);
 
@@ -94,6 +134,53 @@ export default {
         // Manejo de errores en la llamada HTTP
         console.error('Error en el registro:', error);
         alert('Error en el registro. Por favor, inténtalo de nuevo más tarde.');
+=======
+        const userData = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          username: this.username,
+          password: this.password,
+          confirmPassword: this.confirmPassword
+        };
+
+        // Realizar la solicitud HTTP al backend
+        const response = await fetch('http://localhost:5000/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(userData)
+        });
+
+        const responseData = await response.json();
+
+        // Manejar la respuesta del backend
+        if (response.ok) {
+          // Si el registro fue exitoso, mostrar mensaje y manejar el token JWT
+          alert('Registro exitoso.');
+
+          const token = responseData.token;
+          localStorage.setItem('jwtToken', token);
+
+          // Emitir evento para redirigir a la página de inicio de sesión
+          this.$emit('registration-success');
+
+          this.firstName = '';
+          this.lastName = '';
+          this.email = '';
+          this.username = '';
+          this.password = '';
+          this.confirmPassword = '';
+        } else {
+          // Si hubo un problema con el registro, mostrar mensaje de error
+          this.errorMessage = responseData.msg || 'Error en el registro. Por favor, intente de nuevo más tarde.';
+        }
+      } catch (error) {
+        // Manejo de errores en la llamada HTTP
+        console.error('Error en el registro:', error);
+        this.errorMessage = 'Error en el registro. Por favor, intente de nuevo más tarde.';
+>>>>>>> feature/backend-frontend-integration
       }
     }
   }

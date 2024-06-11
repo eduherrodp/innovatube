@@ -4,9 +4,13 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const auth = require('./routes/auth');
 const videos = require('./routes/videoRoutes');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+
+// CORS
+app.use(cors());
 
 // bodyParser config
 app.use(bodyParser.urlencoded({extended: false}));
