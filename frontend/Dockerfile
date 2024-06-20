@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Set nginx 
-FROM nginx:alpine
+FROM nginx:latest
 
 # Copy build files to nginx path
 COPY --from=build /app/dist /usr/share/nginx/html
