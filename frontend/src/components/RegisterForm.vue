@@ -150,7 +150,7 @@ export default {
 form {
   max-width: 500px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #f0f0f0;
 }
 
 form .form-control {

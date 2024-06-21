@@ -91,7 +91,7 @@ export default {
 form {
   max-width: 400px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #f0f0f0;
   opacity: 1;
 }
 
