@@ -91,7 +91,7 @@ export default {
         async search() {
             try {
                 const token = localStorage.getItem('jwtToken');
-                const response = await axios.get('http://localhost:5000/videos/search', {
+                const response = await axios.get('http://3.145.6.96:5000/videos/search', {
                     params: { query: this.query },
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -106,7 +106,7 @@ export default {
         async loadFavorites() {
             try {
                 const token = localStorage.getItem('jwtToken');
-                const response = await axios.get('http://localhost:5000/videos/favorites', {
+                const response = await axios.get('http://3.145.6.96:5000/videos/favorites', {
                     headers: { 'x-auth-token': token }
                 });
                 this.favorites = response.data;
@@ -118,7 +118,7 @@ export default {
         async addToFavorites(video) {
             try {
                 const token = localStorage.getItem('jwtToken');
-                await axios.post(`http://localhost:5000/videos/favorite/${video.videoId}`, {}, {
+                await axios.post(`http://3.145.6.96:5000/videos/favorite/${video.videoId}`, {}, {
                     headers: { 'x-auth-token': token }
                 });
                 alert('Video agregado a favoritos.');
@@ -132,7 +132,7 @@ export default {
             try {
                 const token = localStorage.getItem('jwtToken');
                 console.log(videoId);
-                await axios.delete(`http://localhost:5000/videos/favorite/${videoId}`, {
+                await axios.delete(`http://3.145.6.96:5000/videos/favorite/${videoId}`, {
                     headers: { 'x-auth-token': token }
                 });
                 this.loadFavorites(); // Recargar la lista de favoritos después de eliminar uno
