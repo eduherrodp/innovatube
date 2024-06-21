@@ -105,7 +105,7 @@ export default {
         };
 
         // Realizar la solicitud HTTP al backend
-        const response = await fetch('http://localhost:5000/auth/register', {
+        const response = await fetch('http://3.145.6.96:5000/auth/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

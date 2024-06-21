@@ -46,7 +46,7 @@ export default {
           password: this.password
         };
 
-        const response = await fetch('http://localhost:5000/auth/login', {
+        const response = await fetch('http://3.145.6.96:5000/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
